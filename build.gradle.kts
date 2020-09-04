@@ -1,25 +1,28 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+group = "no.nav.pensjonsamhandling"
+
 plugins {
-    java
     kotlin("jvm") version "1.4.0"
+    kotlin("plugin.serialization") version "1.4.0"
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
-
 repositories {
+    jcenter()
     mavenCentral()
+    maven("https://packages.confluent.io/maven/")
+    maven("https://jitpack.io")
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    testCompile("junit", "junit", "4.12")
+
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "14"
 }

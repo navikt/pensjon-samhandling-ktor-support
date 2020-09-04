@@ -5,7 +5,10 @@ group = "no.nav.pensjonsamhandling"
 plugins {
     kotlin("jvm") version "1.4.0"
     kotlin("plugin.serialization") version "1.4.0"
+    id("se.patrikerdes.use-latest-versions") version "0.2.14"
+    id("net.researchgate.release") version "2.8.1"
     `maven-publish`
+
 }
 
 repositories {
@@ -16,6 +19,11 @@ repositories {
 
 dependencies {
 
+}
+
+release {
+    newVersionCommitMessage = "[Release Plugin] - next version commit: "
+    tagTemplate = "release-\${version}"
 }
 
 publishing {

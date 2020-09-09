@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  deploy-to-dev:
+  release:
     name: Deploy to prod-gcp
     runs-on: ubuntu-latest
     steps:

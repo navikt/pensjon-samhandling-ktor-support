@@ -17,15 +17,6 @@ jobs:
         with:
           java-version: 14
 
-      - name: Change gradlew permissions to executable
-        run: chmod +x ./gradlew
-
-      - name: Test Build
-        run: ./gradlew test build
-        env:
-          ORG_GRADLE_PROJECT_githubUser: x-access-token
-          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
-
       - name: set up git
         run: git config user.email "${{ github.actor }}@users.noreply.github.com" && git config user.name "Github Actions"
 

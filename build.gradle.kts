@@ -13,6 +13,7 @@ plugins {
     id("se.patrikerdes.use-latest-versions") version "0.2.14"
     id("net.researchgate.release") version "2.8.1"
     `maven-publish`
+    `java-library`
 
 }
 
@@ -30,6 +31,11 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 release {

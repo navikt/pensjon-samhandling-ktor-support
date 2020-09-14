@@ -26,6 +26,9 @@ jobs:
           ORG_GRADLE_PROJECT_githubUser: x-access-token
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: set up git
+        run: git config user.email "${{ github.actor }}@users.noreply.github.com" && git config user.name "Github Actions"
+
       - name: capture version number for release
         run: echo "::set-env name=VERSION::$(grep -v '^#' gradle.properties | grep 'version=' | cut -d '=' -f2 | xargs)"
 

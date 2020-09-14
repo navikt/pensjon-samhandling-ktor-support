@@ -13,7 +13,7 @@ import io.prometheus.client.exporter.common.TextFormat
 
 const val METRICS_PATH = "/metrics"
 
-internal fun Application.metrics(collectorRegistry: CollectorRegistry = CollectorRegistry.defaultRegistry) {
+fun Application.metrics(collectorRegistry: CollectorRegistry = CollectorRegistry.defaultRegistry) {
     install(MicrometerMetrics) { registry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT) }
     routing { metricsRouting(collectorRegistry) }
 }

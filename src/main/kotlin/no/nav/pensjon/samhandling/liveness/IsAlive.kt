@@ -7,7 +7,7 @@ import io.ktor.routing.*
 
 const val IS_ALIVE_PATH = "/isAlive"
 
-internal fun Application.isAlive(alive: () -> Boolean = { true }) {
+fun Application.isAlive(alive: () -> Boolean = { true }) {
     routing {
         get(IS_ALIVE_PATH) {
             call.respondText("", ContentType.Text.Plain, getStatusCode(alive))

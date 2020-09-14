@@ -3,7 +3,7 @@ name: Release pensjon-samhandling-ktor-support
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:

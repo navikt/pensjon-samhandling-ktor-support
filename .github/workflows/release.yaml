@@ -22,9 +22,9 @@ jobs:
 
       - name: Test Build
         run: ./gradlew test build
-        #env:
-        #  ORG_GRADLE_PROJECT_githubUser: x-access-token
-        #  ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          ORG_GRADLE_PROJECT_githubUser: x-access-token
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
 
       - name: capture version number for release
         run: echo "::set-env name=VERSION::$(grep -v '^#' gradle.properties | grep 'version=' | cut -d '=' -f2 | xargs)"

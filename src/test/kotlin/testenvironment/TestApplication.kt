@@ -4,11 +4,13 @@ import io.ktor.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
-internal const val PORT = 8081
-internal const val HOST = "http://localhost"
+private const val PORT = 8081
+internal const val TEST_ENVIRONMENT_HOST = "http://localhost:$PORT"
 
-internal fun testApplication(testEndpoint: Application.() -> Unit) =
-    embeddedServer(Netty, applicationEngine(testEndpoint))
+internal fun testApplication(startServer: Boolean = true, testEndpoint: Application.() -> Unit) =
+    embeddedServer(Netty, applicationEngine(testEndpoint)).also{
+        if(startServer){it.start()}
+    }
 
 private fun applicationEngine(testEndpoint: Application.() -> Unit) =
     applicationEngineEnvironment {

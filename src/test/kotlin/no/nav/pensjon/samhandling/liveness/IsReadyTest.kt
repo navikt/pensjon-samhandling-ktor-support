@@ -5,8 +5,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import testenvironment.HOST
-import testenvironment.PORT
+import testenvironment.TEST_ENVIRONMENT_HOST
 import testenvironment.testApplication
 import java.net.URI
 import java.net.http.HttpClient
@@ -20,21 +19,24 @@ internal class IsReadyTest {
     private lateinit var testApplication: NettyApplicationEngine
 
     @Test
-    fun `isReady endpoint should return 200`() {
+    fun `isReady endpoint returns 200`() {
         testApplication = testApplication { isReady() }
-        testApplication = testApplication.start()
 
-        val response = client.send(isReadyRequest(), ofString())
-        Assertions.assertEquals(200, response.statusCode())
+        Assertions.assertEquals(200, client.send(isReadyRequest(), ofString()).statusCode())
     }
 
     @Test
-    fun `isReady should return 500 when callback function returns false`() {
-        testApplication = testApplication { isReady { false } }
-        testApplication.start()
+    fun `isReady returns 200 when callback function returns true`() {
+        testApplication = testApplication { isReady { true } }
 
-        val response = client.send(isReadyRequest(), ofString())
-        Assertions.assertEquals(500, response.statusCode())
+        Assertions.assertEquals(200, client.send(isReadyRequest(), ofString()).statusCode())
+    }
+
+    @Test
+    fun `isReady returns 500 when callback function returns false`() {
+        testApplication = testApplication { isReady { false } }
+
+        Assertions.assertEquals(500, client.send(isReadyRequest(), ofString()).statusCode())
     }
 
     @AfterEach
@@ -43,7 +45,7 @@ internal class IsReadyTest {
     }
 
     private fun isReadyRequest() = HttpRequest.newBuilder()
-        .uri(URI.create("$HOST:$PORT$IS_READY_PATH"))
+        .uri(URI.create("$TEST_ENVIRONMENT_HOST$IS_READY_PATH"))
         .GET()
         .build()
 }

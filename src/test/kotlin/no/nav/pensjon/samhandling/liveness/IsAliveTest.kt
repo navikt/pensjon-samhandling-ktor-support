@@ -6,8 +6,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import testenvironment.HOST
-import testenvironment.PORT
+import testenvironment.TEST_ENVIRONMENT_HOST
 import testenvironment.testApplication
 import java.net.URI
 import java.net.http.HttpClient
@@ -21,21 +20,24 @@ internal class IsAliveTest {
     private lateinit var testApplication: NettyApplicationEngine
 
     @Test
-    fun `isAlive endpoint should return 200`() {
+    fun `isAlive returns 200`() {
         testApplication = testApplication { isAlive() }
-        testApplication = testApplication.start()
 
-        val response = client.send(isAliveRequest(), ofString())
-        assertEquals(200, response.statusCode())
+        assertEquals(200, client.send(isAliveRequest(), ofString()).statusCode())
     }
 
     @Test
-    fun `isAlive endpoint should return 500 when callback function returns false`() {
-        testApplication = testApplication { isAlive { false } }
-        testApplication.start()
+    fun `isAlive returns 200 when callback function returns true`() {
+        testApplication = testApplication { isAlive { true } }
 
-        val response = client.send(isAliveRequest(), ofString())
-        assertEquals(500, response.statusCode())
+        assertEquals(200, client.send(isAliveRequest(), ofString()).statusCode())
+    }
+
+    @Test
+    fun `isAlive returns 500 when callback function returns false`() {
+        testApplication = testApplication { isAlive { false } }
+
+        assertEquals(500, client.send(isAliveRequest(), ofString()).statusCode())
     }
 
     @AfterEach
@@ -44,7 +46,7 @@ internal class IsAliveTest {
     }
 
     private fun isAliveRequest() = HttpRequest.newBuilder()
-        .uri(URI.create("$HOST:$PORT$IS_ALIVE_PATH"))
+        .uri(URI.create("$TEST_ENVIRONMENT_HOST$IS_ALIVE_PATH"))
         .GET()
         .build()
 }

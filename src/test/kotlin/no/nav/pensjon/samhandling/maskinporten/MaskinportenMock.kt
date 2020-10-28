@@ -57,7 +57,6 @@ internal class MaskinportenMock {
             .willReturn(WireMock.serverError().withBody("test body")))
     }
 
-
     private fun createMaskinportenToken(): String {
         val claimsSet = JWTClaimsSet.Builder()
             .subject("alice")

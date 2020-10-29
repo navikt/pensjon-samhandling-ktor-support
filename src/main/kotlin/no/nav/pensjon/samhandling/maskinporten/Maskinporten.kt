@@ -15,7 +15,7 @@ internal const val VALID_IN_SECONDS_ENV_KEY = "MASKINPORTEN_JWT_EXPIRATION_TIME_
 class Maskinporten(env: Map<String, String> = System.getenv()) {
     private val requiredEnvKey = listOf(MASKINPORTEN_TOKEN_HOST_ENV_KEY, CLIENT_ID_ENV_KEY, PRIVATE_JWK_ENV_KEY, SCOPE_ENV_KEY, VALID_IN_SECONDS_ENV_KEY)
     private val maskinportenClient: MaskinportenClient = MaskinportenClient(createMaskinportenConfig(env))
-    internal val token: String get() = maskinportenClient.maskinportenTokenString
+    val token: String get() = maskinportenClient.maskinportenTokenString
 
     private fun createMaskinportenConfig(env: Map<String, String>): MaskinportenConfig {
         env.verifyEnvironmentVariables(requiredEnvKey)

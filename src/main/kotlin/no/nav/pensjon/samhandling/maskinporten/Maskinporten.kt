@@ -6,11 +6,11 @@ import no.nav.pensjon.samhandling.env.verifyEnvironmentVariables
 import no.nav.security.maskinporten.client.MaskinportenClient
 import no.nav.security.maskinporten.client.MaskinportenConfig
 
-internal const val MASKINPORTEN_TOKEN_HOST_ENV_KEY = "MASKINPORTEN_HOST"
-internal const val CLIENT_ID_ENV_KEY = "MASKINPORTEN_CLIENT_ID"
-internal const val PRIVATE_JWK_ENV_KEY = "MASKINPORTEN_JWK_PRIVATE_KEY"
-internal const val SCOPE_ENV_KEY = "MASKINPORTEN_SCOPE"
-internal const val VALID_IN_SECONDS_ENV_KEY = "MASKINPORTEN_JWT_EXPIRATION_TIME_IN_SECONDS"
+const val MASKINPORTEN_TOKEN_HOST_ENV_KEY = "MASKINPORTEN_HOST"
+const val CLIENT_ID_ENV_KEY = "MASKINPORTEN_CLIENT_ID"
+const val PRIVATE_JWK_ENV_KEY = "MASKINPORTEN_JWK_PRIVATE_KEY"
+const val SCOPE_ENV_KEY = "MASKINPORTEN_SCOPE"
+const val VALID_IN_SECONDS_ENV_KEY = "MASKINPORTEN_JWT_EXPIRATION_TIME_IN_SECONDS"
 
 class Maskinporten(env: Map<String, String> = System.getenv()) {
     private val requiredEnvKey = listOf(MASKINPORTEN_TOKEN_HOST_ENV_KEY, CLIENT_ID_ENV_KEY, PRIVATE_JWK_ENV_KEY, SCOPE_ENV_KEY, VALID_IN_SECONDS_ENV_KEY)

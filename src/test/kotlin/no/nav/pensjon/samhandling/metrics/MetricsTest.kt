@@ -1,6 +1,7 @@
 package no.nav.pensjon.samhandling.metrics
 
 import io.ktor.server.netty.*
+import io.prometheus.client.Gauge
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -20,6 +21,22 @@ internal class MetricsTest {
     @Test
     fun `metric endpoint should return 200`() {
         Assertions.assertEquals(200, client.send(metricRequest(), ofString()).statusCode())
+    }
+
+    @Test
+    fun `register gauge and read value from endpoint`() {
+        val gaugeName = "testgauge"
+        val gaugeValue = 10.0
+
+        val testGauge = Gauge
+            .build()
+            .name(gaugeName)
+            .help("tetHelp")
+            .register()
+        testGauge.set(gaugeValue)
+
+        val response = client.send(metricRequest(), ofString()).body()
+        Assertions.assertTrue(response.contains("$gaugeName $gaugeValue"))
     }
 
     @AfterAll

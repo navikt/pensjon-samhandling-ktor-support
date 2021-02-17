@@ -13,7 +13,13 @@ const val SCOPE_ENV_KEY = "MASKINPORTEN_SCOPE"
 const val VALID_IN_SECONDS_ENV_KEY = "MASKINPORTEN_JWT_EXPIRATION_TIME_IN_SECONDS"
 
 class Maskinporten(env: Map<String, String> = System.getenv()) {
-    private val requiredEnvKey = listOf(MASKINPORTEN_TOKEN_HOST_ENV_KEY, CLIENT_ID_ENV_KEY, PRIVATE_JWK_ENV_KEY, SCOPE_ENV_KEY, VALID_IN_SECONDS_ENV_KEY)
+    private val requiredEnvKey = listOf(
+        MASKINPORTEN_TOKEN_HOST_ENV_KEY,
+        CLIENT_ID_ENV_KEY,
+        PRIVATE_JWK_ENV_KEY,
+        SCOPE_ENV_KEY,
+        VALID_IN_SECONDS_ENV_KEY
+    )
     private val maskinportenClient: MaskinportenClient = MaskinportenClient(createMaskinportenConfig(env))
     val token: String get() = maskinportenClient.maskinportenTokenString
 
@@ -22,9 +28,17 @@ class Maskinporten(env: Map<String, String> = System.getenv()) {
         return MaskinportenConfig(
             baseUrl = env.getVal(MASKINPORTEN_TOKEN_HOST_ENV_KEY),
             clientId = env.getVal(CLIENT_ID_ENV_KEY),
-            privateKey = RSAKey.parse(env.getVal(PRIVATE_JWK_ENV_KEY)),
+            privateKey = parseJwk(env.getVal(PRIVATE_JWK_ENV_KEY)),
             scope = env.getVal(SCOPE_ENV_KEY),
             validInSeconds = env.getVal(VALID_IN_SECONDS_ENV_KEY).toInt()
         )
     }
+
+    private fun parseJwk(jwk: String) = try {
+        RSAKey.parse(jwk)
+    } catch (e: Exception) {
+        throw MaskinportenParseJwkException()
+    }
 }
+
+class MaskinportenParseJwkException : RuntimeException("Exception when parsing private JWK for Maskinporten")

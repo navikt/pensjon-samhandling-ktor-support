@@ -1,12 +1,12 @@
 package no.nav.pensjon.samhandling.maskinporten
 
-import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator
 import no.nav.pensjon.samhandling.env.MissingEnvironmentVariables
 import no.nav.security.maskinporten.client.exceptions.MaskinportenClientException
 import no.nav.security.maskinporten.client.exceptions.MaskinportenObjectMapperException
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class MaskinportenTest {
@@ -49,6 +49,13 @@ internal class MaskinportenTest {
     }
 
     @Test
+    fun `Throws MaskinportenParseJwkException when token can not be parsed`() {
+        assertThrows<MaskinportenParseJwkException> {
+            Maskinporten( createMaskinportenEnvVariables("Faulty private jwk"))
+        }
+    }
+
+    @Test
     fun `Throws MissingEnvironmentVariables when environment variables are missing`() {
         val exception = assertThrows<MissingEnvironmentVariables> { Maskinporten(emptyMap()) }
 
@@ -61,10 +68,12 @@ internal class MaskinportenTest {
     private infix fun String.containWord(word: String) = this.contains(word)
 }
 
-internal fun createMaskinportenEnvVariables(privateKey: RSAKey = RSAKeyGenerator(2048).keyID("123").generate()) = mapOf(
+internal fun createMaskinportenEnvVariables(privateKey: String = createPrivateKey()) = mapOf(
     SCOPE_ENV_KEY to "testScope",
     CLIENT_ID_ENV_KEY to "testClient",
     VALID_IN_SECONDS_ENV_KEY to "120",
-    PRIVATE_JWK_ENV_KEY to privateKey.toJSONString(),
+    PRIVATE_JWK_ENV_KEY to privateKey,
     MASKINPORTEN_TOKEN_HOST_ENV_KEY to MASKINPORTEN_MOCK_HOST
 )
+
+private fun createPrivateKey() = RSAKeyGenerator(2048).keyID("123").generate().toJSONString()

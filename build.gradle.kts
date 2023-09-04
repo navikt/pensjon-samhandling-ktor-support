@@ -18,6 +18,12 @@ plugins {
 
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 repositories {
     mavenCentral()
     maven("https://packages.confluent.io/maven/")
@@ -66,11 +72,6 @@ publishing {
             }
         }
     }
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<Test> {

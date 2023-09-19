@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val ktorVersion = "1.6.8"
+val ktorVersion = "2.3.4"
 val micrometerRegistryPrometheusVersion = "1.11.4"
 
 val wiremockVersion = "2.27.2"
@@ -37,7 +37,7 @@ repositories {
 
 dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktorVersion")
     implementation("io.micrometer:micrometer-registry-prometheus:$micrometerRegistryPrometheusVersion")
 
     testImplementation("com.github.tomakehurst:wiremock:$wiremockVersion")

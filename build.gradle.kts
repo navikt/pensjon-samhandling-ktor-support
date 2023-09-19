@@ -1,16 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val ktorVersion = "1.6.4"
-val micrometerRegistryPrometheusVersion = "1.7.5"
+val ktorVersion = "1.6.8"
+val micrometerRegistryPrometheusVersion = "1.11.4"
 
 val wiremockVersion = "2.27.2"
-val junitJupiterVersion = "5.8.1"
+val junitJupiterVersion = "5.10.0"
 
 group = "no.nav.pensjonsamhandling"
 
 plugins {
-    kotlin("jvm") version "1.6.0"
-    kotlin("plugin.serialization") version "1.6.0"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
     id("net.researchgate.release") version "2.8.1"
     `maven-publish`

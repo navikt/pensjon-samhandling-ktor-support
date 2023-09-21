@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val ktorVersion = "2.3.4"
 val micrometerRegistryPrometheusVersion = "1.11.4"
 
-val wiremockVersion = "2.27.2"
+val wiremockVersion = "3.0.1"
 val junitJupiterVersion = "5.10.0"
 
 group = "no.nav.pensjonsamhandling"

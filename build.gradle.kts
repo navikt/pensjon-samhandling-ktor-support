@@ -9,10 +9,11 @@ val junitJupiterVersion = "5.10.0"
 group = "no.nav.pensjonsamhandling"
 
 plugins {
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.serialization") version "1.7.10"
+    kotlin("jvm") version "1.9.10"
+    kotlin("plugin.serialization") version "1.9.10"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
-    id("net.researchgate.release") version "2.8.1"
+    id("net.researchgate.release") version "3.0.2"
+    id("com.github.ben-manes.versions") version "0.48.0"
     `maven-publish`
     `java-library`
 

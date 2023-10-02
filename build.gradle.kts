@@ -19,6 +19,10 @@ plugins {
 
 }
 
+release {
+    git.requireBranch = "master"
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))

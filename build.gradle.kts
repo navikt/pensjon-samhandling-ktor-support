@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val ktorVersion = "2.3.4"
 val micrometerRegistryPrometheusVersion = "1.11.4"
 
-val wiremockVersion = "3.0.1"
-val junitJupiterVersion = "5.10.0"
+val wiremockVersion = "3.9.1"
+val junitJupiterVersion = "5.10.3"
 
 group = "no.nav.pensjonsamhandling"
 
@@ -13,7 +13,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.10"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
     id("net.researchgate.release") version "3.0.2"
-    id("com.github.ben-manes.versions") version "0.48.0"
+    id("com.github.ben-manes.versions") version "0.51.0"
     `maven-publish`
     `java-library`
 
@@ -45,7 +45,7 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktorVersion")
     implementation("io.micrometer:micrometer-registry-prometheus:$micrometerRegistryPrometheusVersion")
 
-    testImplementation("com.github.tomakehurst:wiremock:$wiremockVersion")
+    testImplementation("org.wiremock:wiremock:$wiremockVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")

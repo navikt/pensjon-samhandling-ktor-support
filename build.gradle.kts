@@ -5,6 +5,7 @@ val micrometerRegistryPrometheusVersion = "1.11.4"
 
 val wiremockVersion = "3.9.1"
 val junitJupiterVersion = "5.10.3"
+val jacksonVersion = "1.0"
 
 group = "no.nav.pensjonsamhandling"
 
